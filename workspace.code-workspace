@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "aapi_lab",
+			"path": "aapi_lab"
+		}
+	],
+	"settings": {
+		"activestate.promptRuntimeCreation": false
+	}
+}

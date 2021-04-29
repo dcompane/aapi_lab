@@ -1,0 +1,19 @@
+Scenario: Extract the job definition from the Dev system and port it to the QA one.
+
+Setup: cd '.\json lab\'
+
+1. Extract the job definition in json format
+    ctm deploy jobs::get json -s "ctm=IN01&folder=Airflow_DAG_Trigger“ > "Airflow AI Test.json"
+2. Show the file on the IDE
+	Select the file and browse it
+3. Build it (will fail)
+	ctm build '.\Airflow AI Test.json'
+4. Show the deploy descriptor and point transformations and error.
+	ctm build '.\Airflow AI Test.json' '.\Airflow AI Test - DD-None.json'
+5. Builds ok but no output. Show the transformed file output
+	ctm deploy transform '.\Airflow AI Test.json' '.\Airflow AI Test - DD-DCO.json' > '.\Airflow AI Test - xfrmd-DCO.json'
+6. Build final file with either option
+	ctm build '.\Airflow AI Test.json' '.\Airflow AI Test - DD-None.json'
+	ctm deploy '.\Airflow AI Test.json' '.\Airflow AI Test - DD-None.json'
+7. Show the jobs in the Control-M client.
+
