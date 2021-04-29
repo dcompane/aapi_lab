@@ -1,0 +1,15 @@
+Scenario: Create a python program that runsControl-M AAPI calls
+
+Setup: 
+Validate 
+    connection variables on aapi_example_deploy_jobs_get.py lines 37 to 43
+	Control-M server and folder on lines 57 and 58
+
+1. Under VSCode, run the program in debug
+	Click on Debug domain, and
+	click on green arrow for run and debug
+
+2. See the output json file retrieved Pretty Printed
+
+
+

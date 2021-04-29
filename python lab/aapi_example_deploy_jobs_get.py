@@ -54,17 +54,16 @@ format = 'json' # str | Output format (json or xml) (optional) (default to json)
 #format = 'xml:folder' # str | Output format (json or xml) (optional) (default to json)
 #format = 'xml:job' # str | Output format (json or xml) (optional) (default to json)
 
-folder = 'DCO_FTPGP' # str |  (optional)
-#folder = 'DCO_IBP-Test' # str |  (optional) This fails because of the AI jobs
+ctm = 'psctm' # str 
+folder = 'DCO_FTPGP' # str 
 
-ctm = 'psctm' # str |  (optional)   
 result={}
 try:
     # This is equivalent to 
     #      ctm deploy jobs::get json -s "ctm=psctm&folder=DCO_FTPGP"
     # Get deployed jobs that match the search criteria.
     api_response = deploy_instance.get_deployed_folders_new(format=format, folder=folder, ctm=ctm)
-    # print(api_response)
+    #pprint(api_response)
     result = json.loads(api_response.replace("'", '"'))
 except ApiException as e:
     print("Exception when calling DeployApi->get_deployed_folders_new: %s\n" % e)
