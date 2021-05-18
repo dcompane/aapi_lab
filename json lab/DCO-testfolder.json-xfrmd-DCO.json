@@ -1,0 +1,231 @@
+{
+  "dco-testfolder": {
+    "Type": "Folder",
+    "BusinessFields": [
+      {
+        "Usercode": "dco"
+      }
+    ],
+    "ControlmServer": "IN01",
+    "OrderMethod": "Manual",
+    "SiteStandard": "DCO_SiteStandard",
+    "SubApplication": "dco_aapi_test",
+    "CreatedBy": "daniel_companeetz@bmc.com",
+    "Application": "dco",
+    "When": {
+      "RuleBasedCalendars": {
+        "Included": [
+          "EVERYDAY"
+        ],
+        "EVERYDAY": {
+          "Type": "Calendar:RuleBased",
+          "When": {
+            "DaysRelation": "OR",
+            "WeekDays": [
+              "NONE"
+            ],
+            "MonthDays": [
+              "ALL"
+            ]
+          }
+        }
+      }
+    },
+    "dco-os-job01": {
+      "Type": "Job:Command",
+      "SubApplication": "dco_aapi_test",
+      "Host": "dco_dc01_ag01",
+      "CreatedBy": "daniel_companeetz@bmc.com",
+      "RunAs": "ctmagent",
+      "Application": "dco",
+      "Command": "echo I am %%JOBNAME",
+      "When": {
+        "WeekDays": [
+          "NONE"
+        ],
+        "MonthDays": [
+          "ALL"
+        ],
+        "DaysRelation": "OR"
+      },
+      "eventsToAdd": {
+        "Type": "AddEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job01-TO-dco-os-job02"
+          },
+          {
+            "Event": "dco-os-job01-TO-dco-os-job03"
+          },
+          {
+            "Event": "dco-os-job01-TO-dco-os-job11"
+          }
+        ]
+      }
+    },
+    "dco-os-job02": {
+      "Type": "Job:Command",
+      "SubApplication": "dco_aapi_test",
+      "Host": "dco_dc01_ag01",
+      "CreatedBy": "daniel_companeetz@bmc.com",
+      "RunAs": "ctmagent",
+      "Application": "dco",
+      "Command": "echo I am %%JOBNAME",
+      "When": {
+        "WeekDays": [
+          "NONE"
+        ],
+        "MonthDays": [
+          "ALL"
+        ],
+        "DaysRelation": "OR"
+      },
+      "eventsToWaitFor": {
+        "Type": "WaitForEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job01-TO-dco-os-job02"
+          }
+        ]
+      },
+      "eventsToAdd": {
+        "Type": "AddEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job02-TO-dco-sla"
+          }
+        ]
+      },
+      "eventsToDelete": {
+        "Type": "DeleteEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job01-TO-dco-os-job02"
+          }
+        ]
+      }
+    },
+    "dco-os-job03": {
+      "Type": "Job:Command",
+      "SubApplication": "dco_aapi_test",
+      "Host": "dco_dc01_ag01",
+      "CreatedBy": "daniel_companeetz@bmc.com",
+      "RunAs": "ctmagent",
+      "Application": "dco",
+      "Command": "echo I am %%JOBNAME",
+      "When": {
+        "WeekDays": [
+          "NONE"
+        ],
+        "MonthDays": [
+          "ALL"
+        ],
+        "DaysRelation": "OR"
+      },
+      "eventsToWaitFor": {
+        "Type": "WaitForEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job01-TO-dco-os-job03"
+          }
+        ]
+      },
+      "eventsToAdd": {
+        "Type": "AddEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job03-TO-dco-sla"
+          }
+        ]
+      },
+      "eventsToDelete": {
+        "Type": "DeleteEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job01-TO-dco-os-job03"
+          }
+        ]
+      }
+    },
+    "dco-os-job11": {
+      "Type": "Job:Command",
+      "SubApplication": "dco_aapi_test",
+      "Host": "dco_dc01_ag01",
+      "CreatedBy": "daniel_companeetz@bmc.com",
+      "RunAs": "ctmagent",
+      "Application": "dco",
+      "Command": "echo I am %%JOBNAME",
+      "When": {
+        "WeekDays": [
+          "NONE"
+        ],
+        "MonthDays": [
+          "ALL"
+        ],
+        "DaysRelation": "OR"
+      },
+      "eventsToWaitFor": {
+        "Type": "WaitForEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job01-TO-dco-os-job11"
+          }
+        ]
+      },
+      "eventsToDelete": {
+        "Type": "DeleteEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job01-TO-dco-os-job11"
+          }
+        ]
+      }
+    },
+    "dco-sla": {
+      "Type": "Job:SLAManagement",
+      "ServiceName": "dco_Service",
+      "ServicePriority": "3",
+      "SubApplication": "dco_aapi_test",
+      "Host": "dco_dc01_ag01",
+      "JobRunsDeviationsTolerance": "3",
+      "CreatedBy": "daniel_companeetz@bmc.com",
+      "RunAs": "ctmagent",
+      "Application": "dco",
+      "CompleteBy": {
+        "Time": "12:00",
+        "Days": "0"
+      },
+      "When": {
+        "WeekDays": [
+          "NONE"
+        ],
+        "MonthDays": [
+          "ALL"
+        ],
+        "DaysRelation": "OR"
+      },
+      "eventsToWaitFor": {
+        "Type": "WaitForEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job03-TO-dco-sla"
+          },
+          {
+            "Event": "dco-os-job02-TO-dco-sla"
+          }
+        ]
+      },
+      "eventsToDelete": {
+        "Type": "DeleteEvents",
+        "Events": [
+          {
+            "Event": "dco-os-job03-TO-dco-sla"
+          },
+          {
+            "Event": "dco-os-job02-TO-dco-sla"
+          }
+        ]
+      }
+    }
+  }
+}

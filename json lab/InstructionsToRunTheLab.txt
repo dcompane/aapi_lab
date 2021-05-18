@@ -2,10 +2,11 @@ Scenario: Extract the job definition from the Dev system and port it to the QA o
 
 Setup: 
 cd '.\json lab\'
+# Change the environment or use the -e option
 ctm env set saas_preprod
 
 1. Extract the job definition in json format
-    ctm deploy jobs::get json -s "ctm=IN01&folder=Airflow_DAG_Trigger" > "Airflow AI Test.json"
+    ctm deploy jobs::get -s "ctm=psctm&folder=dco-testfolder" -e saas_preprod > '.\DCO-testfolder.json'
 
 Setup: change to the new environment
 ctm env set me
@@ -13,13 +14,13 @@ ctm env set me
 2. Show the file on the IDE
 	Select the file and browse it
 3. Build it (will fail)
-	ctm build '.\Airflow AI Test.json'
+	ctm build '.\DCO-testfolder.json' -e saas_preprod
 4. Show the deploy descriptor and point transformations and error.
-	ctm build '.\Airflow AI Test.json' '.\Airflow AI Test - DD-DCO.json'
+	ctm build '.\DCO-testfolder.json' '.\DD-DCO.json' -e saas_preprod
 5. Builds ok but no output. Show the transformed file output
-	ctm deploy transform '.\Airflow AI Test.json' '.\Airflow AI Test - DD-DCO.json' > '.\Airflow AI Test - xfrmd-DCO.json'
+	ctm deploy transform '.\DCO-testfolder.json' '.\DD-DCO.json' -e saas_preprod > '.\DCO-testfolder.json-xfrmd-DCO.json'
 6. Build final file with either option
-	ctm build '.\Airflow AI Test.json' '.\Airflow AI Test - DD-DCO.json'
-	ctm deploy '.\Airflow AI Test.json' '.\Airflow AI Test - DD-DCO.json'
+	ctm build '.\DCO-testfolder.json' '.\DD-DCO.json' -e saas_preprod
+	ctm deploy '.\DCO-testfolder.json' '.\DD-DCO.json' -e saas_preprod
 7. Show the jobs in the Control-M client.
 
