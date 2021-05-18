@@ -1,0 +1,24 @@
+Scenario: Change json to comply with "rules" using Deploy Descriptors (DD).
+	Rule: Sitestandard called None must exist but is empty.
+
+Setup: 
+cd '.\json lab\Jobs_noBuild\'
+ctm env set me
+
+1. Open the folder definition and the Deploy Descriptor (DD) in json format
+    Airflow AI Test - jobNone.json
+	Airflow AI Test - DD-None.json
+2. Show the file on the IDE
+	Select the file and browse it
+		See there is no SiteStandard property
+		See Add on DD.
+3. Build it (will fail)
+	ctm build '.\Airflow AI Test - jobNone.json'
+4. Show the deploy descriptor and point transformations and error.
+	ctm build '.\Airflow AI Test - jobNone.json' '.\Airflow AI Test - DD-None.json'
+5. Builds ok but no output. Show the transformed file output
+	ctm deploy transform '.\Airflow AI Test - jobNone.json' '.\Airflow AI Test - DD-None.json' > '.\Airflow AI Test - xfrmd-DCO.json'
+6. Build final file with either option
+	ctm build '.\Airflow AI Test - jobNone.json' '.\Airflow AI Test - DD-None.json'
+	ctm deploy '.\Airflow AI Test - jobNone.json' '.\Airflow AI Test - DD-None.json'
+7. Show the jobs in the Control-M client.

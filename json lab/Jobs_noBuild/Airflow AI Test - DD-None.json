@@ -1,0 +1,24 @@
+{
+  "DeployDescriptor":
+  [
+    {
+      "Add": {
+        "Path": "$.Airflow_DAG_Trigger",
+        "propertyName": "SiteStandard",
+        "propertyValue":"None"
+      }
+    },
+    {
+      "Property" :"ControlmServer",
+      "Assign" : "psctm"
+    },
+    {
+       "Property" :"SiteStandard",
+       "Assign" : "None"
+    },
+    {
+      "Property" : "Host",
+      "Assign" : "vl-aus-ctm-ap01.ctm.bmc.com"
+    }
+  ]
+}

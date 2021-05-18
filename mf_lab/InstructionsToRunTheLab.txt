@@ -1,0 +1,22 @@
+Scenario: Show deploy on MF jobs via XML validates with Site Standards
+
+Setup: 
+cd '.\json lab\Jobs_noBuild\'
+ctm env set me
+
+1. Extract the job from the mainframe in XML format (emdef folder)
+	ctm deploy jobs::get -s "ctm=bmcbzos&folder=DCO_SOR"
+	ctm deploy jobs::get xml:folder -s "ctm=bmcbzos&folder=DCO_SOR"
+	ctm deploy jobs::get xml:folder -s "ctm=bmcbzos&folder=DCO_SOR" > DCO_SOR.XML
+
+2. Build which will fail.
+	ctm build DCO_SOR.XML
+3. Deploy works
+	ctm deploy DCO_SOR.XML
+4. Change something that will violate Site Standard (Application DCO to DC0)
+	Do changes manually and save
+5 Deploy again
+	ctm deploy DCO_SOR.XML
+
+Note: you will need python3, and do a pip install git+https://github.com/dcompane/controlm_py.git
+

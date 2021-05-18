@@ -31,12 +31,9 @@ from sys import exit
 from urllib3 import disable_warnings
 from urllib3.exceptions import NewConnectionError, MaxRetryError, InsecureRequestWarning
 
-try:
-    #updated version
-    import controlm_py as controlm_client
-except:
-    #original version 9.0.19 at PyPi
-    import controlm_client
+
+
+import controlm_py as controlm_client
 
 
 class CtmConnection(object):

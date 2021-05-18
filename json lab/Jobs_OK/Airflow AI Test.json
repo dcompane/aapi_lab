@@ -12,6 +12,21 @@
         "Included": [
           "EVERYDAY"
         ],
+        "Excluded": [
+          "Monday_2"
+        ],
+        "Monday_2": {
+          "Type": "Calendar:RuleBased",
+          "When": {
+            "DaysRelation": "OR",
+            "WeekDays": [
+              "MON"
+            ],
+            "MonthDays": [
+              "NONE"
+            ]
+          }
+        },
         "EVERYDAY": {
           "Type": "Calendar:RuleBased",
           "When": {
@@ -167,19 +182,25 @@
       "Application": "Airflow_DAG_Trigger",
       "Variables": [
         {
-          "FTP-RHOST": "<Agent Host>"
-        },
-        {
           "FTP-LOSTYPE": "Unix"
         },
         {
           "FTP-CONNTYPE1": "S3"
         },
         {
+          "FTP-PORT1": "21"
+        },
+        {
           "FTP-ROSTYPE": "Unix"
         },
         {
           "FTP-CONNTYPE2": "File System"
+        },
+        {
+          "FTP-RHOST": "<Agent Host>"
+        },
+        {
+          "FTP-PORT2": "21"
         },
         {
           "FTP-RUSER": "ctmagent"
