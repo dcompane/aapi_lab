@@ -1,0 +1,34 @@
+{
+  "DeployDescriptor":
+  [
+    {
+      "Property" : "OrderMethod",
+      "Assign" : "Manual"
+    },
+    {
+      "Property" : "SiteStandard",
+      "Assign" : "DCO_SiteStandard"
+    },
+    {
+      "Property" : "Host",
+      "Assign" : "dco_dc01_ag01"
+    },
+    {
+      "Property" : "Application",
+      "Assign" : "dco"
+    },
+    {
+      "Property" : "SubApplication",
+      "Replace" : [ {"DCO(.*)" : "dco$1"} ]
+    },
+    {
+      "Property" : "@",
+      "Replace" : [ {"DCO(.*)" : "dco$1"} ]
+    },
+    {
+      "ApplyOn"     :  {"Type":"Folder"},
+      "Property" : "@",
+      "Replace" : [ {"DCO(.*)" : "dco$1"} ]
+    }
+  ]
+}

@@ -8,6 +8,50 @@
             "command": "echo Hello"
         },
         {
+            "label": "Make Active me",
+            "type": "shell",
+            "command": "ctm env set me",
+            "problemMatcher": [
+                "$eslint-stylish"
+            ],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Make Active saas_sbx",
+            "type": "shell",
+            "command": "ctm env set saas_sbx",
+            "problemMatcher": [
+                "$eslint-stylish"
+            ],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Make Active saas_preprod",
+            "type": "shell",
+            "command": "ctm env set saas_preprod",
+            "problemMatcher": [
+                "$eslint-stylish"
+            ],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Make Active lm-dev",
+            "type": "shell",
+            "command": "ctm env set LM-dev-admin",
+            "problemMatcher": [
+                "$eslint-stylish"
+            ],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
             "label": "Deploy JSON file into Control-M",
             "type": "shell",
             "command": "ctm deploy '${file}'",
