@@ -24,6 +24,7 @@ Change Log
 Date (YMD)    Name                  What
 --------      ------------------    ------------------------
 20200620      Daniel Companeetz     Initial commit
+20210709      Daniel Companeetz     Added SaaS
 """
 
 import json
@@ -53,7 +54,7 @@ aapi_client = SaaSConnection(host=host_name,port=host_port, endpoint=endpoint,
 
 rpt_instance = ctm.api.reporting_api.ReportingApi(api_client=aapi_client.api_client)
 
-name = 'Workloads_1' # str | The report name.
+name = 'shared:Workloads_1' # str | The report name.
 format = 'csv' # str |  (optional)
 file_path = r'c:\temp\Workloads_1.csv'
 report_run = ctm.RunReport(name=name, format=format) # RunReport object parameters | The report generation parameters
@@ -66,7 +67,7 @@ except ApiException as e:
     print("Exception when submitting report request: %s\n" % e)
     exit(30)
 
-
+#Loop to validate completion
 while api_response.status == 'PROCESSING':
     sleep (10) # sleeps 10 seconds
     try: 
@@ -74,14 +75,18 @@ while api_response.status == 'PROCESSING':
     except ApiException as e:
         print("Exception when submitting report request: %s\n" % e)
         exit(30)
+        
+# Url to retrieve the report and local name to download it
 file_url = api_response.url
-file_path = r'c:\temp\activejobs1.csv'
+file_path = r'c:\temp\workload_1.csv'
 http = PoolManager()
 try: 
+    # Need token on headers. (like wget with --headers)
     headers ={'x-api-key': aapi_token}
     with http.request('GET', file_url, headers=headers, preload_content=False) as http_response, open(file_path, 'wb') as out_file:       
         copyfileobj(http_response, out_file)
 except:
     print("Exception when retrieving report")
+    exit(99)
 
-
+exit(0)
